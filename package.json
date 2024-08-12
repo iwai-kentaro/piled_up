@@ -1,0 +1,12 @@
+{
+  "name": "piled_up",
+  "version": "1.0.0",
+  "description": "このリポジトリは、積み上げて作っていく 20240813 新規ファイル作成　スタート",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

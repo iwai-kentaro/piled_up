@@ -1,0 +1,28 @@
+services:
+
+  db:
+    image: mysql:5.7
+    container_name: iwaken_db
+    environment:
+      MYSQL_DATABASE: iwaken_db
+      MYSQL_USER: iwaken
+      MYSQL_PASSWORD: iwaken  
+      MYSQL_ROOT_PASSWORD: iwaken
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    container_name: iwaken_wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: iwaken
+      WORDPRESS_DB_PASSWORD: iwaken
+      WORDPRESS_DB_NAME: iwaken_db
+    volumes:
+      - ./dist:/var/www/html
+
+volumes:
+  db_data:

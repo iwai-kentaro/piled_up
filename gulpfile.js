@@ -1,157 +1,53 @@
-//common
-const gulp = require("gulp"); //gulp本体
-const debug = require("gulp-debug");//処理中のファイルをログ表示
+// gulpプラグインの読み込み
+const gulp = require("gulp");
+// sassをコンパイルするプラグインの読み込み
+const sass = require("gulp-sass")(require("sass"));
+// ソースマップのプラグインの読み込み
+const sourcemaps = require("gulp-sourcemaps");
+//エラーチェックのプラグインの読み込み
+const plumber = require('gulp-plumber');
+// ブラウザのプラグインの読み込み
+const browserSync = require('browser-sync').create();
 
-//scss
-const sass = require("gulp-dart-sass"); //Dart Sass はSass公式が推奨 @use構文などが使える
-const plumber = require("gulp-plumber"); // エラーが発生しても強制終了させない
-const notify = require("gulp-notify"); // エラー発生時のアラート出力
-const browserSync = require("browser-sync"); //ブラウザリロード
-const autoprefixer = require("gulp-autoprefixer"); //ベンダープレフィックス自動付与
-const gcmq = require("gulp-group-css-media-queries"); //メディアクエリを一つにまとめる
-const sassGlob = require('gulp-sass-glob-use-forward');//dartSassでglob使う
+// Sassをコンパイルし、ソースマップを生成するタスク
+gulp.task('styles', () => {
+    return gulp
+        .src('src/scss/style.scss')  // 対象のSassファイルを指定
+        .pipe(plumber({
+            errorHandler: function(err) {
+                console.error('Error:', err.message);
+                this.emit('end');
+            }
+        }))
+        .pipe(sourcemaps.init())  // ソースマップの初期化
+        .pipe(sass().on('error', sass.logError))  // Sassをコンパイル
+        .pipe(sourcemaps.write('.'))  // ソースマップを同じディレクトリに出力
+        .pipe(gulp.dest('dist/assets/css'))  // コンパイルされたCSSを出力
+        .pipe(browserSync.stream());  // ブラウザに変更を反映
+});
 
+// JavaScriptファイルをコピーするタスク
+gulp.task('scripts', () => {
+    return gulp
+        .src('src/js/**/*.js')  // srcディレクトリ内のすべてのJavaScriptファイルを選択
+        .pipe(gulp.dest('dist/assets/js'))  // dist/assets/jsディレクトリにコピー
+        .pipe(browserSync.stream());  // ブラウザに変更を反映
+});
 
-//img
-const webp = require('gulp-webp');//webpに変換
-const imagemin = require('gulp-imagemin');//image圧縮
+// ブラウザ同期とファイル監視を設定するタスク
+gulp.task('serve', () => {
+    browserSync.init({
+        server: {
+            baseDir: './dist'  // distディレクトリをサーバーのベースディレクトリに設定
+        },
+        startPath: 'index.html'  // サーバー起動時に表示するファイル
+    });
 
-// 入出力するフォルダを指定
-const baseRoot = './public_html';
-const srcBase = './src';
-const distBase = './public_html/assets';
+    // ファイル監視とタスクの実行
+    gulp.watch('src/scss/**/*.scss', gulp.series('styles'));  // SCSSファイルの監視
+    gulp.watch('src/js/**/*.js', gulp.series('scripts'));  // JSファイルの監視
+    gulp.watch('dist/*.html').on('change', browserSync.reload);  // HTMLファイルの変更を監視してブラウザをリロード
+});
 
-const srcPath = {
-  'scss': srcBase + '/scss/**/*.scss',
-  'html': baseRoot + '/**/*.html',
-  'img': srcBase + '/img/**/*.*',
-  'js': distBase + '/js/*.js'
-};
-
-const distPath = {
-  'css': distBase + '/css/',
-  'html': baseRoot + '/',
-  'img': distBase + "/img/",
-  'js': distBase + '/js/',
-};
-
-const TARGET_BROWSERS = [
-  'last 2 versions',//各ブラウザの2世代前までのバージョンを担保
-  'ie >= 11'//IE11を担保
-];
-
-/**
- * sass
- *
- */
-const cssSass = () => {
-  return gulp.src(srcPath.scss, {
-    sourcemaps: true
-  })
-  .pipe(
-    //エラーが出ても処理を止めない
-    plumber({
-      errorHandler: notify.onError('Error:<%= error.message %>')
-    }))
-  .pipe(sass({ outputStyle: 'expanded' })) //指定できるキー expanded compressed
-  .pipe(gcmq())
-  .pipe(sassGlob())
-  .pipe(autoprefixer(TARGET_BROWSERS))// ベンダープレフィックス自動付与
-  .pipe(gulp.dest(distPath.css, { sourcemaps: './' })) //コンパイル先
-  .pipe(browserSync.stream())
-  .pipe(notify({
-    // message: 'Sassをコンパイルしました！',
-    onLast: true
-  }))
-}
-
-/**
- * html
- */
-const html = () => {
-  return gulp.src(srcPath.html)
-    .pipe(gulp.dest(distPath.html))
-}
-/**
- * js
- */
-const js = () => {
-  return gulp.src(srcPath.js)
-    .pipe(gulp.dest(distPath.js))
-}
-
-/**
- * img
- */
-const imageWebp = () => {
-  return gulp
-  .src(srcBase+'/img/**/*.+(jpg|jpeg|png)')
-  .pipe(webp())
-  .pipe(gulp.dest(distPath.img));
-}
-
-/* 
- * ime圧縮
-*/
-const imageMin = () => {
-  return gulp
-  .src(srcBase+'/img/**/*.+(jpg|jpeg|png)')
-  .pipe(imagemin())
-  .pipe(gulp.dest(distPath.img));
-}
- 
-/**
- * ローカルサーバー立ち上げ
- */
-const browserSyncFunc = () => {
-  browserSync.init(browserSyncOption);
-}
-
-const browserSyncOption = {
-  // proxy: "example.wp",// ローカルにある「Site Domain」に合わせる
-  // notify: false,// ブラウザ更新時に出てくる通知を非表示にする
-  // open: "external",// ローカルIPアドレスでサーバを立ち上げる
-  server : {
-    baseDir : './public_html',
-    index : ['index.html'],
-  },
-  ghostMode: {// 同期設定
-    clicks: false,
-    forms: false,
-    scroll: false,
-  },
-}
-
-/**
- * リロード
- */
-const browserSyncReload = (done) => {
-  browserSync.reload();
-  done();
-}
-
-/**
- *
- * ファイル監視 ファイルの変更を検知したら、browserSyncReloadでreloadメソッドを呼び出す
- * series 順番に実行
- * watch('監視するファイル',処理)
- */
-const watchFiles = () => {
-  gulp.watch(srcPath.scss, gulp.series(cssSass))//Sassコンパイル
-  gulp.watch(srcPath.img, gulp.series(imageWebp,browserSyncReload));//webp作成
-  gulp.watch(srcPath.img, gulp.series(imageMin,browserSyncReload));//画像圧縮
-  gulp.watch(srcPath.html, gulp.series(browserSyncReload))//html変更検出
-  gulp.watch(srcPath.js, gulp.series(browserSyncReload))//html変更検出
-}
-
-
-/**
- * seriesは「順番」に実行
- * parallelは並列で実行
- */
-
-// npx gulpで起動
-exports.default = gulp.series(
-  gulp.parallel(html,js,cssSass,imageWebp,imageMin),//初回起動時のみ実行
-  gulp.parallel(watchFiles, browserSyncFunc)//ファイル変更を検知するたび(watchFiles)に画面リロード(browserSyncFunc)
-);
+// デフォルトタスクとして serve タスクを実行
+gulp.task('default', gulp.series('styles', 'scripts', 'serve'));

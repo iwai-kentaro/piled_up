@@ -1,2 +1,67 @@
 @charset "UTF-8";
-@use "../functions" as * ;
+.box{
+    width:  200px;
+    height: 200px;
+    background-color: #333;
+}
+.day2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &__01{
+
+    }
+    &__02{
+
+    }
+    &__03{
+
+    }
+    &__04{
+
+    }
+    &__05{
+        background-color: yellow;
+    }
+    &__06{
+        background-color: blue;
+    }
+    &__07{
+        background-color: crimson;
+    }
+    &-box{
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+
+        background-color: #333;
+    }
+    &__17{
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        --scaleX:0;
+        &::before{
+            content: "";
+            display: inline-block;
+            width: 60px;
+            height: 1px;
+            background-color: #fff;
+            transform: scaleX(var(--scaleX));
+            transform-origin: right center;
+        }
+        &::after{
+            content: "";
+            display: inline-block;
+            width: 60px;
+            height: 1px;
+            background-color: #fff;
+            transform: scaleX(var(--scaleX));
+            transform-origin: left center;
+        }
+    }
+}

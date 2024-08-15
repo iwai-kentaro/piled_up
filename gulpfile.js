@@ -8,6 +8,8 @@ const sourcemaps = require("gulp-sourcemaps");
 const plumber = require('gulp-plumber');
 // ブラウザのプラグインの読み込み
 const browserSync = require('browser-sync').create();
+// ヘッダーを共通化するためのプラグイン
+const fileInclude = require('gulp-file-include');
 
 // Sassをコンパイルし、ソースマップを生成するタスク
 gulp.task('styles', () => {
@@ -43,11 +45,21 @@ gulp.task('serve', () => {
         startPath: 'index.html'  // サーバー起動時に表示するファイル
     });
 
-    // ファイル監視とタスクの実行
-    gulp.watch('src/scss/**/*.scss', gulp.series('styles'));  // SCSSファイルの監視
-    gulp.watch('src/js/**/*.js', gulp.series('scripts'));  // JSファイルの監視
-    gulp.watch('dist/*.html').on('change', browserSync.reload);  // HTMLファイルの変更を監視してブラウザをリロード
-});
+   // ファイル監視とタスクの実行
+   gulp.watch('src/scss/**/*.scss', gulp.series('styles'));// SCSSファイルの変更後にブラウザをリロード
+   gulp.watch('src/js/**/*.js', gulp.series('scripts'));// JSファイルの変更後にブラウザをリロード
+    gulp.watch('dist/*.html').on('change', browserSync.reload); // HTMLファイルの変更を監視してブラウザをリロード
+    });
 
 // デフォルトタスクとして serve タスクを実行
 gulp.task('default', gulp.series('styles', 'scripts', 'serve'));
+
+
+gulp.task('html', function() {
+    return gulp.src(['dist/*.html'])
+      .pipe(fileInclude({
+        prefix: '@@',
+        basepath: '@file'
+      }))
+      .pipe(gulp.dest('dist'));
+  });

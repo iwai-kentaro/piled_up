@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.header{
+    width: 100%;
+    background-color: gray;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    nav{
+        max-width: 1020px;
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        ul{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 30px;
+            height: 100px;
+            flex-wrap: wrap;
+            li{
+                a{
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

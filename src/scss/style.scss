@@ -1,9 +1,8 @@
 
-// ファンクションズ
-@use "functions/responsive.scss";
 
 
-
+//レイアウト
+@use "layout/l-header";
 
 // モジュール
 
@@ -11,5 +10,7 @@
 // ページ
 @use "page/top";
 @use "page/two";
+@use "page/three";
+@use "page/four";
 
 

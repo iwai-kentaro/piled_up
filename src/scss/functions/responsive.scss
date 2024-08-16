@@ -1,1 +1,25 @@
 @charset "UTF-8";
+@use "sass:map";
+@use "sass:math";
+
+
+// -----------------------
+// media querys break point value
+// -----------------------
+$breakpoints: (
+  "sm": "screen and (max-width: 420px)",
+  "sp": "screen and (max-width: 767px)",
+  "tb": "screen and (min-width: 768px) and (max-width: 1279px)",
+  "tb_hmb": "screen and (min-width: 768px) and (max-width: 1094px)",
+  "pc": "screen and (max-width: 1280px)",
+  "pcsub": "screen and (min-width: 768px) and (max-width: 840px)",
+) !default;
+
+// ----------------------------
+// media querys
+// ----------------------------
+@mixin mq($breakpoint: "sp") {
+    @media #{map.get($breakpoints, $breakpoint)} {
+      @content;
+    }
+  }

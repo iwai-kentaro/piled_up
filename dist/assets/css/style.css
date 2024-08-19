@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .header {
   width: 100%;
   background-color: gray;
@@ -7,7 +8,7 @@
   z-index: 9999;
 }
 .header nav {
-  max-width: 1020px;
+  max-width: 1050px;
   width: 100%;
   height: auto;
   margin: 0 auto;
@@ -20,8 +21,13 @@
   height: 100px;
   flex-wrap: wrap;
 }
+.header nav ul li {
+  padding: 10px;
+  overflow: hidden;
+}
 .header nav ul li a {
   color: #fff;
+  display: block;
 }
 
 .container {
@@ -261,5 +267,153 @@ html {
   background-image: linear-gradient(to bottom, transparent 60%, orange 60%);
   background-size: 0% 100%;
   background-repeat: no-repeat;
+}
+
+.day4 .box {
+  background-color: #fff;
+}
+
+.day5 {
+  /*ボタン*/
+  /*メニュー内のスタイル*/
+}
+.day5 .bcColor {
+  background-color: #333;
+}
+.day5 .curtain {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+.day5 .curtain .stripe {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-100%);
+}
+.day5 .btn {
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  color: #fff;
+  z-index: 9999;
+  font-size: 32px;
+}
+.day5 .menu {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 20px;
+}
+.day5 .menu__item {
+  overflow: hidden;
+}
+.day5 .menu__item > a {
+  font-size: 32px;
+  padding: 10px;
+  font-weight: bold;
+  display: block;
+  transform: translateY(100%);
+}
+.day5 .header-menu-trigger {
+  width: 64px;
+  height: 64px;
+  border-radius: 28px;
+  background-color: crimson;
+  position: fixed;
+  top: 64px;
+  right: 64px;
+  border: none;
+  cursor: pointer;
+  z-index: 99;
+  transition: background-color 0.5s;
+}
+.day5 .header-menu-trigger.is-active {
+  background-color: #fff;
+}
+.day5 .header-menu-trigger.is-active .line,
+.day5 .header-menu-trigger.is-active .dot {
+  background-color: crimson;
+}
+.day5 .line {
+  width: 13px;
+  height: 3px;
+  border-radius: 1px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.day5 .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.day5 .line[data-index="1"] {
+  transform: translate(calc(-50% + 3px), calc(-50% - 5px));
+}
+.day5 .line[data-index="2"] {
+  transform: translate(calc(-50% + 3px), calc(-50% + 5px));
+}
+.day5 .dot[data-index="1"] {
+  transform: translate(calc(-50% - 8px), calc(-50% - 5px));
+}
+.day5 .dot[data-index="2"] {
+  transform: translate(calc(-50% - 8px), calc(-50% + 5px));
+}
+.day5 .circle-bg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: crimson;
+  position: absolute;
+  top: 64px;
+  right: 64px;
+  z-index: -1;
+  transform: scale(0);
+}
+.day5 .header-menu {
+  max-width: 500px;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+.day5 .header-menu.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.day5 .header-lists {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.day5 .header-lists li {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(20px);
+}
+.day5 .header-lists li + li {
+  margin-top: 80px;
 }
 /*# sourceMappingURL=style.css.map */

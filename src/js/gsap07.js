@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
     //スクロールトリガー関連
     //scrollTo:{x:目的地,y:目的地}
     //目的地には数値もオブジェクトも指定できる

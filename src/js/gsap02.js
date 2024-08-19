@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
 
     gsap.to(".day2__02", { rotateZ: 180, duration: 10, delay: .3 });
     gsap.to(".day2__03", { scale: 2, duration: 10, delay: .3 });

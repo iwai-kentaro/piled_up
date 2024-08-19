@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
      //アニメーション制御
     // ボタンあり
     // 必要なクリック判定→javascript

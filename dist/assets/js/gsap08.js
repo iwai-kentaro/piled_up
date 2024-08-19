@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
     //スクロールトリガープラグインを読み込んでおく
     //trigger
     //marker

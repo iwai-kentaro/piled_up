@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
     // 擬似要素動かしたい
     // 擬似要素はDOM要素ではない
     // カスタムプロパティを作成し使う

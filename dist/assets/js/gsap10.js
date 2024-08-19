@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
     //scrollTriggerの設定
     //matchMedia
     //.add

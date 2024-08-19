@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
        //   ease
        gsap.to(".day2__12", {
         x: 200,

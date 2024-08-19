@@ -1,4 +1,5 @@
 window.addEventListener("DOMContentLoaded", function () {
+    gsap.config({nullTargetWarn: false})
     gsap.to(".box",{x:100,delay: .5});
     gsap.fromTo(".box , .box2",{x:600},{x:500, delay:1})
     const tl = gsap.timeline({

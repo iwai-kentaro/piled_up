@@ -1,0 +1,112 @@
+* {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+#root {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+button{
+  transition: opacity .3s;
+}
+button:hover{
+  opacity: 0.6;
+  /* border: 2px solid lawngreen; */
+}
+button:focus{
+  border: 1px solid lightgreen;
+}
+
+.listBox {
+  display: flex;
+  text-align: left;
+  gap: 10px;
+  max-width: 700px;
+  width: 100%;
+  margin: 0 auto;
+}
+.list__incomplete{
+  border: 1px solid;
+  height: auto;
+  padding: 10px;
+}
+.list__incomplete ul {
+  padding-left: 0;
+  overflow: hidden;
+}
+.list__incomplete h2{
+  font-size: 18px;
+}
+.todo__list{
+  list-style: none;
+  font-size: 14px;
+  width: 100%;
+}
+.todo__item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%; /* 要素の幅を制限 */
+  border-bottom: 1px solid #333;
+  overflow-wrap: break-word; /* テキストを折り返す */
+  word-wrap: break-word; /* テキストが長すぎる場合に折り返す */
+  white-space: normal; /* テキストを折り返す */
+}
+.todo__content{
+  max-width: 100%;
+  flex: 1;
+}
+.todo__date{
+  white-space: normal;
+}
+.todo__text{
+  white-space: normal;
+}
+.todo__item + .todo__item{
+  margin-top: 10px;
+}
+.complete__complete{
+  border: 1px solid;
+  width: 50%;
+  height: auto;
+  padding: 10px;
+}
+.complete__complete ul{
+  padding-left: 0;
+  overflow: hidden;
+}
+.complete__complete h2{
+  font-size: 18px;
+}
+.complete__list {
+  list-style: none;
+  font-size: 14px;
+  width: 100%;
+  /* max-width: 100%; */
+}
+.complete__item{
+  border-bottom: 1px solid #333;
+}
+.complete__item + .complete__item{
+margin-top: 10px;
+}
+.add__btn{
+  background: lightblue;
+}
+.todo__btn{
+  display: inline;
+  height: auto;
+  padding: 0;
+  font-size: 12px;
+  background-color: lightblue;
+  padding: 10px;
+}
+
+
+

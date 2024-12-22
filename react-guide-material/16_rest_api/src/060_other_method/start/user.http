@@ -1,0 +1,19 @@
+# GETリクエストで /user データを取得
+GET http://127.0.0.1:3003/user/
+Content-Type: application/json
+
+  {
+    "id": "3",
+    "username": "piyo三郎",
+    "age": 50,
+    "hobbies": [
+      "筋トレ",
+      "野球"
+    ],
+    "premiumAccount": true
+  }
+###
+
+# GETリクエストで /todo データを取得
+GET http://127.0.0.1:3003/todo
+Content-Type: application/json

@@ -1,0 +1,5 @@
+.App-start .component{
+    padding: 1rem;
+    color: red;
+    border: 2px solid red;
+}
